@@ -307,8 +307,12 @@
 <ol>
 <li>INSERT、 UPDATE、 DELETE、 SELECT … FOR UPDATE [OF columns] [WAIT n | NOWAIT];</li>
 <li>SELECT … FOR UPDATE 语句允许用户一次锁定多条记录进行更新</li>
-<li>使用 COMMIT 或 ROLLBACK 语句释放锁。<h3 id="什么是表级锁"><a href="#什么是表级锁" class="headerlink" title="什么是表级锁"></a>什么是表级锁</h3>表示对当前操作的整张表加锁，它实现简单，资源消耗较少，被大部分 MySQL 引擎支持。<br>最常使用的MYISAM 与 INNODB 都支持表级锁定。表级锁定分为表共享读锁（共享锁）与表独占写锁（排他锁）。 <h3 id="什么是页级锁"><a href="#什么是页级锁" class="headerlink" title="什么是页级锁"></a>什么是页级锁</h3>页级锁是 MySQL 中锁定粒度介于行级锁和表级锁中间的一种锁。<strong>表级锁速度快，但冲突多，行级冲突少，但速度慢。</strong><br>所以取了折衷的页级，一次锁定相邻的一组记录。<h2 id="数据库三大范式："><a href="#数据库三大范式：" class="headerlink" title="数据库三大范式："></a>数据库三大范式：</h2>第一范式：<strong>属性</strong>不可分<br>第二范式：非主属性不存在对主键的<strong>部分依赖</strong><br>第三范式：非主属性不存在对主键的<strong>传递依赖</strong><h2 id="数据库索引："><a href="#数据库索引：" class="headerlink" title="数据库索引："></a>数据库索引：</h2>主键的作用：</li>
+<li>使用 COMMIT 或 ROLLBACK 语句释放锁。</li>
 </ol>
+<h3 id="什么是表级锁"><a href="#什么是表级锁" class="headerlink" title="什么是表级锁"></a>什么是表级锁</h3><p>表示对当前操作的整张表加锁，它实现简单，资源消耗较少，被大部分 MySQL 引擎支持。<br>最常使用的MYISAM 与 INNODB 都支持表级锁定。表级锁定分为表共享读锁（共享锁）与表独占写锁（排他锁）。 </p>
+<h3 id="什么是页级锁"><a href="#什么是页级锁" class="headerlink" title="什么是页级锁"></a>什么是页级锁</h3><p>页级锁是 MySQL 中锁定粒度介于行级锁和表级锁中间的一种锁。<strong>表级锁速度快，但冲突多，行级冲突少，但速度慢。</strong><br>所以取了折衷的页级，一次锁定相邻的一组记录。</p>
+<h2 id="数据库三大范式："><a href="#数据库三大范式：" class="headerlink" title="数据库三大范式："></a>数据库三大范式：</h2><p>第一范式：<strong>属性</strong>不可分<br>第二范式：非主属性不存在对主键的<strong>部分依赖</strong><br>第三范式：非主属性不存在对主键的<strong>传递依赖</strong></p>
+<h2 id="数据库索引："><a href="#数据库索引：" class="headerlink" title="数据库索引："></a>数据库索引：</h2><p>主键的作用：</p>
 <p>1.可以保证实体的完整性；<br>2.能够加快数据库的操作速度；<br>3.确定数据唯一性<br>…</p>
 <h3 id="为什么主键能加快数据库的操作速度？–-gt-为什么索引能加快数据库操作速度？"><a href="#为什么主键能加快数据库的操作速度？–-gt-为什么索引能加快数据库操作速度？" class="headerlink" title="为什么主键能加快数据库的操作速度？–&gt;为什么索引能加快数据库操作速度？"></a>为什么主键能加快数据库的操作速度？–&gt;为什么索引能加快数据库操作速度？</h3><p>在没有添加主键的表，它的数据无序的放置在磁盘存储器上，一行一行的排列<br>如果给表上了主键，那么表在磁盘上的存储结构就由整齐排列的结构转变成了树状结构，<br>也就是上面说的「B Tree/B+ Tree」结构，换句话说，就是整个表就变成了一个索引。<br><strong>主键的作用就是把「表」的数据格式转换成「索引（平衡树）」的格式放置。</strong></p>
 <p>非聚簇索引与树结构无关，与树存放的内容有关；<br>1.data域存放的是数据记录的地址，然后以data域的值为地址读取相应的数据记录。这被称为“非聚簇索引”。<br>2.data域保存了完整的数据记录，这个索引的key是数据表的主键，这被称为“聚簇索引（或聚集索引）”。</p>
@@ -332,6 +336,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2021/09/18/spring/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">spring</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
