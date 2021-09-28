@@ -264,18 +264,10 @@
 <li><strong>TCP报文段</strong>首部包含32比特的序号字段和确认号字段。</li>
 </ol>
 <ul>
-<li><pre><code>序号字段：TCP隐式地对数据流中的每一个字节编号
-</code></pre>
-</li>
-<li><pre><code>确认字段：填充期望收到的下一字节号
-</code></pre>
-</li>
-<li><pre><code>        TCP对确认的字段采取累积确认的方法
-</code></pre>
-</li>
-<li><pre><code>        对失序的报文段进行保留而不是直接丢弃
-</code></pre>
-</li>
+<li>序号字段：TCP隐式地对数据流中的每一个字节编号</li>
+<li>确认字段：填充期望收到的下一字节号</li>
+<li>TCP对确认的字段采取累积确认的方法</li>
+<li>对失序的报文段进行保留而不是直接丢弃</li>
 </ul>
 <ol start="3">
 <li><strong>超时重传</strong></li>
@@ -298,6 +290,8 @@
 </ul>
 <ol start="4">
 <li><strong>流量控制</strong> 流量控制服务是一个速度匹配服务，用于消除接收方缓存溢出的可能性</li>
+</ol>
+<ul>
 <li>接收方维护一个接收缓存 大小为RcvBuffer</li>
 <li>LastByteRead 接收端的应用进程从缓存中读取的最后一个字节的编号</li>
 <li>LastByteRcvd 从网络中到达并由接收方接收的最后一个字节的编号</li>
@@ -305,11 +299,12 @@
 <li>发送方维护跟踪两个变量：LastByteSent 最后发送的字节编号 LastByteAcked 最后被确认的字节编号</li>
 <li>LastByteSent-LastByteAcked≤rwnd</li>
 <li>当rwnd=0时，发送方继续发送只有一个字节的数据，接收方返回确认报文</li>
-</ol>
+</ul>
 <p><img src="/img/network/1.jpg" srcset="/img/loading.gif" lazyload alt="1"></p>
 <ol start="5">
-<li><p><strong>拥塞控制</strong> 根据网络的拥塞情况而调整发送速度</p>
-</li>
+<li><strong>拥塞控制</strong> 根据网络的拥塞情况而调整发送速度</li>
+</ol>
+<ul>
 <li><p>端到端的拥塞控制：超时或3次冗余确认</p>
 </li>
 <li><p>网络辅助拥塞控制：路由器向发送方显示反馈网络拥塞状况</p>
@@ -325,8 +320,9 @@
 </li>
 </ol>
 </li>
-<li><p>差错恢复机制 TCP采取累积确认方式，接受方不会对正确但失序的报文段逐个确认</p>
-</li>
+</ul>
+<ol start="6">
+<li>差错恢复机制 TCP采取累积确认方式，接受方不会对正确但失序的报文段逐个确认</li>
 </ol>
 <h3 id="流水线的差错控制"><a href="#流水线的差错控制" class="headerlink" title="流水线的差错控制"></a>流水线的差错控制</h3><h4 id="回退N步（GBN"><a href="#回退N步（GBN" class="headerlink" title="回退N步（GBN)"></a>回退N步（GBN)</h4><h5 id="接收方"><a href="#接收方" class="headerlink" title="接收方"></a>接收方</h5><ol>
 <li>累积确认</li>
