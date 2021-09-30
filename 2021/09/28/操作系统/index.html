@@ -406,11 +406,11 @@
 <h3 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h3><p><strong>程序运行并不需要全部加载进内存中</strong><br>每个程序拥有自己的地址空间，该空间被分割成多块，每一块称为页或页面。</p>
 <p>每一页都有连续的地址范围，这些页被映射到物理空间</p>
 <p>当程序引用到一部分在物理内存中的地址空间时，由硬件执行映射，不在物理内存时，由操作系统将缺失部分装入物理内存</p>
-<h3 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h3><h4 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h4><p>得到更多的线性空间<br> 虚拟地址空间被划分的单元为<strong>页面（page）</strong> 物理地址为<strong>页框（page frame）</strong> 大小相同，实际系统中为512B~1GB，<br>映射过程：<br><img src="/img/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_files/1.jpg" srcset="/img/loading.gif" lazyload></p>
+<h3 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h3><h4 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h4><p>得到更多的线性空间<br> 虚拟地址空间被划分的单元为<strong>页面（page）</strong> 物理地址为<strong>页框（page frame）</strong> 大小相同，实际系统中为512B~1GB，<br>映射过程：<br><img src="/img/os/1.jpg" srcset="/img/loading.gif" lazyload></p>
 <h4 id="虚拟地址到物理地址的映射-页表"><a href="#虚拟地址到物理地址的映射-页表" class="headerlink" title="虚拟地址到物理地址的映射-页表"></a>虚拟地址到物理地址的映射-页表</h4><p>虚拟地址分为虚拟页号和偏移量</p>
 <p>页表的目的是将虚拟页面映射为页框，虚拟页面的<strong>页号</strong>作为页表索引找到该虚拟页面的页表项</p>
 <p>再将页表项的<strong>页框号</strong>拼接到偏移量的高位端，<strong>替换虚拟页号</strong>，形成送往内存的<strong>物理地址</strong></p>
-<p>页表项结构：<br><img src="/img/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_files/2.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>页表项结构：<br><img src="/img/os/2.jpg" srcset="/img/loading.gif" lazyload></p>
 <ol>
 <li>保护位：三位分别表示读写执行</li>
 <li>高速缓存禁止位：对等待I/O设备响应 确保硬件是不断从设备中读取数据而不是访问缓存中的旧数据</li>
@@ -433,13 +433,13 @@
 <li> 修改：检查最老的页面的R位，如果是0，表示该页面最老且未访问，可以立即置换，否则将R位清0 修改装入时间并放于链表队尾</li>
 <li> 时钟页面置换算法-弥补第二次机会页面置换算法经常在链表中移动页面的效率问题</li>
 </ul>
-<p> <img src="/img/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_files/3.jpg" srcset="/img/loading.gif" lazyload></p>
+<p> <img src="/img/os/3.jpg" srcset="/img/loading.gif" lazyload></p>
 <ul>
 <li> 最近最少（LRU）使用页面置换算法</li>
 <li> 老化算法</li>
 <li> 工作集算法-找出一个不在工作集中的页面并淘汰</li>
 <li>一个进程当前正在使用的页面集合称为工作集</li>
-<li>在进程运行时预先调页<br><img src="/img/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_files/5.jpg" srcset="/img/loading.gif" lazyload></li>
+<li>在进程运行时预先调页<br><img src="/img/os/5.jpg" srcset="/img/loading.gif" lazyload></li>
 <li>最坏情况，所有页面都被访问过了最好选择一个未修改的页面</li>
 <li> 工作集时钟算法<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">if</span>(R==<span class="hljs-number">1</span>)&#123;<br>	R=<span class="hljs-number">0</span>;<br>	move next page;<br>&#125;<br><span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>&#123;<br>	<span class="hljs-keyword">if</span>(T&gt;τ&amp;&amp;m==<span class="hljs-number">0</span>)change page;<span class="hljs-comment">//T为page在内存中的生存时间，τ为最长生存时间，m为修改位</span><br>	<span class="hljs-keyword">if</span>(m==<span class="hljs-number">1</span>)&#123;<br>		<br>	判断是否将修改页面写回磁盘(一次写操作)，写回则将m位修改为<span class="hljs-number">0</span>;<br>	move next page;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 如果指针经过<strong>一圈</strong>返回起点:</li>
@@ -461,14 +461,14 @@
 <li>编译器内部调用使用的堆栈<br>需求：能令程序员不用管理表扩张和收缩的办法<h4 id="目的-1"><a href="#目的-1" class="headerlink" title="目的"></a>目的</h4></li>
 </ol>
 <p><strong>将程序和数据可被划分为逻辑上独立的地址空间并有助于共享和保护</strong><br>将同一类型或属于同一逻辑实体的分为一个段，每个段构成一个独立空间，可以独立增长或减少而不影响其他段。<br>再次编译也不需要修改未改变的段</p>
-<h3 id="段页结合"><a href="#段页结合" class="headerlink" title="段页结合"></a>段页结合</h3><p>虚拟地址(位数划分以具体系统为准)：<br><img src="/img/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_files/4.jpg" srcset="/img/loading.gif" lazyload></p>
+<h3 id="段页结合"><a href="#段页结合" class="headerlink" title="段页结合"></a>段页结合</h3><p>虚拟地址(位数划分以具体系统为准)：<br><img src="/img/os/4.jpg" srcset="/img/loading.gif" lazyload></p>
 <p>查询算法流程：</p>
 <ol>
 <li>根据段号找到段描述符</li>
 <li>检查该段是否在内存中，在就寻找，不在产生段错误，如果违反段保护要求就发出越界错误</li>
 <li>检查所请求虚拟页面的页表项，如果不在内存就产生一个缺页中断，在就从页表项中取出该页面在内存中的起始位置</li>
 <li>把偏移量加到页面的起始位置，得到要访问的字在内存中的地址</li>
-<li>进行读或写操作<br><img src="/img/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_files/6.jpg" srcset="/img/loading.gif" lazyload></li>
+<li>进行读或写操作<br><img src="/img/os/6.jpg" srcset="/img/loading.gif" lazyload></li>
 </ol>
 
             </div>
