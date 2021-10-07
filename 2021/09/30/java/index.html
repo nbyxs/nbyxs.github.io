@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.4k 字
+      3.2k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      28
+      36
        分钟
     </span>
   
@@ -246,13 +246,13 @@
 <li>对于任何非空引用x，x.equals(null) 返回false<h1 id="equals-方法和hashCode-方法"><a href="#equals-方法和hashCode-方法" class="headerlink" title="equals 方法和hashCode()方法"></a>equals 方法和hashCode()方法</h1><h1 id="final"><a href="#final" class="headerlink" title="final"></a>final</h1></li>
 <li>变量：final修饰，基本数据类型初始化后值不变，引用数据类型不能指向另一个对象</li>
 <li>类：final修饰的类不能被继承</li>
-<li>方法：final修饰的方法不能被重写<h1 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h1>异常类型结构：<br><img src="/img/java/2.jpg" srcset="/img/loading.gif" lazyload><br>RuntimeException：</li>
+<li>方法：final修饰的方法不能被重写<h1 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h1>异常类型结构：<br><img src="/img/java/2.jpg" srcset="/img/loading.gif" lazyload><h2 id="RuntimeException："><a href="#RuntimeException：" class="headerlink" title="RuntimeException："></a>RuntimeException：</h2></li>
 <li>强制类型转换错误</li>
 <li>数组访问越界</li>
-<li>空指针异常<br>IOException</li>
+<li>空指针异常<h2 id="IOException"><a href="#IOException" class="headerlink" title="IOException"></a>IOException</h2></li>
 <li>试图查阅文件末尾读取文件</li>
 <li>试图打开一个不存在的文件</li>
-<li>试图根据规定的字符串查找Class对象，而该字符串表示的类不存在<br>Error</li>
+<li>试图根据规定的字符串查找Class对象，而该字符串表示的类不存在<h2 id="Error"><a href="#Error" class="headerlink" title="Error"></a>Error</h2></li>
 <li>内存不足</li>
 <li>堆栈溢出</li>
 <li>VirtualMachineError虚拟机错误。用于指示虚拟机被破坏或者继续执行操作所需的资源不足的情况。</li>
@@ -292,8 +292,62 @@
 <li>无参构造方法<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ArrayList</span><span class="hljs-params">()</span> </span>&#123;<br>	<span class="hljs-keyword">this</span>.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;<br>&#125;<br></code></pre></td></tr></table></figure></li>
 <li>有参构造<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ArrayList</span><span class="hljs-params">(<span class="hljs-keyword">int</span> initialCapacity)</span> </span>&#123;<br>	<span class="hljs-comment">//注意根据参数长度声明不同的数组</span><br>    <span class="hljs-keyword">if</span> (initialCapacity &gt; <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">this</span>.elementData = <span class="hljs-keyword">new</span> Object[initialCapacity];<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (initialCapacity == <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">this</span>.elementData = EMPTY_ELEMENTDATA;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalArgumentException(<span class="hljs-string">&quot;Illegal Capacity: &quot;</span>+<br>                                           initialCapacity);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
 <li>特定元素的集合构造方法<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ArrayList</span><span class="hljs-params">(Collection&lt;? extends E&gt; c)</span> </span>&#123;<br>    elementData = c.toArray();<br>    <span class="hljs-keyword">if</span> ((size = elementData.length) != <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-comment">// c.toArray might (incorrectly) not return Object[] </span><br>        <span class="hljs-keyword">if</span> (elementData.getClass() != Object[].class)<br>            elementData = Arrays.copyOf(elementData, size, Object[].class);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-comment">// replace with empty array.</span><br>        <span class="hljs-keyword">this</span>.elementData = EMPTY_ELEMENTDATA;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="扩容"><a href="#扩容" class="headerlink" title="扩容"></a>扩容</h3>扩容从add方法开始：<br>ensureCapacityInternal方法会调用calculateCapacity()方法<br>此方法会判断当前数组是否为DEFAULTCAPACITY_EMPTY_ELEMENTDATA,如果是则返回长度的最大值<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//队尾插入元素</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">add</span><span class="hljs-params">(E e)</span> </span>&#123;<br>    ensureCapacityInternal(size + <span class="hljs-number">1</span>);  <span class="hljs-comment">// Increments modCount!!</span><br>    elementData[size++] = e;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>&#125;<br><span class="hljs-comment">//指定位置插入元素</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> index, E element)</span> </span>&#123;<br>    rangeCheckForAdd(index);<br><br>   ensureCapacityInternal(size + <span class="hljs-number">1</span>);  <span class="hljs-comment">// Increments modCount!!</span><br>    System.arraycopy(elementData, index, elementData, index + <span class="hljs-number">1</span>,size - index);<br>    elementData[index] = element;<br>    size++;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ensureCapacityInternal</span><span class="hljs-params">(<span class="hljs-keyword">int</span> minCapacity)</span> </span>&#123;<br>    ensureExplicitCapacity(calculateCapacity(elementData, minCapacity));<br>&#125;<br><span class="hljs-comment">//此方法会返回DEFAULT_CAPACITY（值为10）和minCapacity的最大值</span><br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">calculateCapacity</span><span class="hljs-params">(Object[] elementData, <span class="hljs-keyword">int</span> minCapacity)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) &#123;<br>        <span class="hljs-keyword">return</span> Math.max(DEFAULT_CAPACITY, minCapacity);<br>    &#125;<br>    <span class="hljs-keyword">return</span> minCapacity;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ensureExplicitCapacity</span><span class="hljs-params">(<span class="hljs-keyword">int</span> minCapacity)</span> </span>&#123;<br>    modCount++;<br>    <span class="hljs-comment">// overflow-conscious code 调用扩容方法</span><br>    <span class="hljs-keyword">if</span> (minCapacity - elementData.length &gt; <span class="hljs-number">0</span>)<br>        grow(minCapacity);<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">grow</span><span class="hljs-params">(<span class="hljs-keyword">int</span> minCapacity)</span> </span>&#123;<br>    <span class="hljs-comment">// overflow-conscious code</span><br>    <span class="hljs-keyword">int</span> oldCapacity = elementData.length;<br>    <span class="hljs-keyword">int</span> newCapacity = oldCapacity + (oldCapacity &gt;&gt; <span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">if</span> (newCapacity - minCapacity &lt; <span class="hljs-number">0</span>)<br>        newCapacity = minCapacity;<br>    <span class="hljs-keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="hljs-number">0</span>)<br>        newCapacity = hugeCapacity(minCapacity);<br>    <span class="hljs-comment">// minCapacity is usually close to size, so this is a win:</span><br>    elementData = Arrays.copyOf(elementData, newCapacity);<br>&#125;<br><br><br></code></pre></td></tr></table></figure>
-<h1 id="对象的共享"><a href="#对象的共享" class="headerlink" title="对象的共享"></a>对象的共享</h1><h2 id="Volatile关键字"><a href="#Volatile关键字" class="headerlink" title="Volatile关键字"></a>Volatile关键字</h2>将变量声明为volatile类型后，编译器和运行都会注意该变量是共享的，因此不会将其余其他操作重排序<br>也不会被缓存在寄存器或者对其他处理器不可见的地方。<br>通常用于某个操作的完成，发生中断或状态的标志<br>当且仅当满足以下所有条件时，才应该使用volatile变量:</li>
+<h3 id="扩容"><a href="#扩容" class="headerlink" title="扩容"></a>扩容</h3>扩容从add方法开始：<br>ensureCapacityInternal方法会调用calculateCapacity()方法<br>此方法会判断当前数组是否为DEFAULTCAPACITY_EMPTY_ELEMENTDATA,如果是则返回长度的最大值<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//队尾插入元素</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">add</span><span class="hljs-params">(E e)</span> </span>&#123;<br>    ensureCapacityInternal(size + <span class="hljs-number">1</span>);  <span class="hljs-comment">// Increments modCount!!</span><br>    elementData[size++] = e;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>&#125;<br><span class="hljs-comment">//指定位置插入元素</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> index, E element)</span> </span>&#123;<br>    rangeCheckForAdd(index);<br><br>   ensureCapacityInternal(size + <span class="hljs-number">1</span>);  <span class="hljs-comment">// Increments modCount!!</span><br>    System.arraycopy(elementData, index, elementData, index + <span class="hljs-number">1</span>,size - index);<br>    elementData[index] = element;<br>    size++;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ensureCapacityInternal</span><span class="hljs-params">(<span class="hljs-keyword">int</span> minCapacity)</span> </span>&#123;<br>    ensureExplicitCapacity(calculateCapacity(elementData, minCapacity));<br>&#125;<br><span class="hljs-comment">//此方法会返回DEFAULT_CAPACITY（值为10）和minCapacity的最大值</span><br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">calculateCapacity</span><span class="hljs-params">(Object[] elementData, <span class="hljs-keyword">int</span> minCapacity)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) &#123;<br>        <span class="hljs-keyword">return</span> Math.max(DEFAULT_CAPACITY, minCapacity);<br>    &#125;<br>    <span class="hljs-keyword">return</span> minCapacity;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ensureExplicitCapacity</span><span class="hljs-params">(<span class="hljs-keyword">int</span> minCapacity)</span> </span>&#123;<br>    modCount++;<br>    <span class="hljs-comment">// overflow-conscious code 调用扩容方法</span><br>    <span class="hljs-keyword">if</span> (minCapacity - elementData.length &gt; <span class="hljs-number">0</span>)<br>        grow(minCapacity);<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">grow</span><span class="hljs-params">(<span class="hljs-keyword">int</span> minCapacity)</span> </span>&#123;<br>    <span class="hljs-comment">// overflow-conscious code</span><br>    <span class="hljs-keyword">int</span> oldCapacity = elementData.length;<br>    <span class="hljs-keyword">int</span> newCapacity = oldCapacity + (oldCapacity &gt;&gt; <span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">if</span> (newCapacity - minCapacity &lt; <span class="hljs-number">0</span>)<br>        newCapacity = minCapacity;<br>    <span class="hljs-keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="hljs-number">0</span>)<br>        newCapacity = hugeCapacity(minCapacity);<br>    <span class="hljs-comment">// minCapacity is usually close to size, so this is a win:</span><br>    elementData = Arrays.copyOf(elementData, newCapacity);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="HashMap-HashTable-ConcurrentHashMap"><a href="#HashMap-HashTable-ConcurrentHashMap" class="headerlink" title="HashMap HashTable ConcurrentHashMap"></a>HashMap HashTable ConcurrentHashMap</h2></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>数据结构</th>
+<th>底层实现</th>
+<th>初始size</th>
+<th>每次扩容大小</th>
+<th>是否线程安全</th>
+<th>键值对是否为null</th>
+<th>负载因子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>HashMap</td>
+<td>jdk1.7:数组+链表 1.8之后数组+链表/红黑树</td>
+<td>16</td>
+<td>size*2</td>
+<td>否</td>
+<td>允许一个null key 多个null val</td>
+<td>0.75</td>
+</tr>
+<tr>
+<td>HashTable</td>
+<td>数组+链表</td>
+<td>11</td>
+<td>size*2+1</td>
+<td>是</td>
+<td>不允许</td>
+<td>0.75</td>
+</tr>
+<tr>
+<td>ConcurrentHashMap</td>
+<td>HashMap</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h3><h3 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h3><ul>
+<li>底层采用分段的数组+链表实现，线程安全</li>
+<li>通过把整个Map分为N个Segment，可以提供相同的线程安全，但是效率提升N倍，默认提升16倍。(读操作不加锁，由于HashEntry的value变量是 volatile的，也能保证读取到最新的值。)</li>
+<li>Hashtable的synchronized是针对整张Hash表的，即每次锁住整张表让线程独占，ConcurrentHashMap允许多个修改操作并发进行，其关键在于使用了锁分离技术</li>
+<li>有些方法需要跨段，比如size()和containsValue()，它们可能需要锁定整个表而而不仅仅是某个段，这需要按顺序锁定所有段，操作完毕后，又按顺序释放所有段的锁</li>
+<li>扩容：段内扩容（段内元素超过该段对应Entry数组长度的75%触发扩容，不会对整个Map进行扩容），插入前检测需不需要扩容，有效避免无效扩容</li>
+</ul>
+<h4 id="为什么说HashMap是线程不安全的？"><a href="#为什么说HashMap是线程不安全的？" class="headerlink" title="为什么说HashMap是线程不安全的？"></a>为什么说HashMap是线程不安全的？</h4><p>在接近临界点时，若此时两个或者多个线程进行put操作，都会进行resize（扩容）和reHash（为key重新计算所在位置），而reHash在并发的情况下可能会形成链表环。<br>总结来说就是在多线程环境下，使用HashMap进行put操作会引起死循环，导致CPU利用率接近100%。</p>
+<h4 id="HashMap扩容"><a href="#HashMap扩容" class="headerlink" title="HashMap扩容"></a>HashMap扩容</h4><p>HashMap根据链地址法（拉链法）来解决冲突，<br>在jdk1.8中，如果链表长度大于8且节点数组长度大于64的时候，<br>就把链表下所有的节点转为双向链表再转化为红黑树。</p>
+<h5 id="为什么HashMap为什么要树化？"><a href="#为什么HashMap为什么要树化？" class="headerlink" title="为什么HashMap为什么要树化？"></a>为什么HashMap为什么要树化？</h5><p>在jdk1.7时，HashMap是由数组+链表实现的。<br>如果一个对象哈希冲突，都被放置到同一个桶里，则会形成一个链表，<br>我们知道链表查询是线性的，会严重影响存取的性能。<br>恶意代码就可以利用这些数据与服务器端交互时构造哈希冲突，导致服务器端CPU大量占用</p>
+<h5 id="为什么要将链表中转红黑树的阈值设为8？"><a href="#为什么要将链表中转红黑树的阈值设为8？" class="headerlink" title="为什么要将链表中转红黑树的阈值设为8？"></a>为什么要将链表中转红黑树的阈值设为8？</h5><p>当链表长度大于或等于阈值（默认为 8）的时候，如果同时还满足容量大于或等于 MIN_TREEIFY_CAPACITY（默认为 64）的要求，就会把链表转换为红黑树。<br>同样，后续如果由于删除或者其他原因调整了大小，当红黑树的节点小于或等于 6 个以后，又会恢复为链表形态。<br>当链表过长时，为了提高性能，需要将链表转化为红黑树<br>链表长度符合泊松分布，各个长度的命中概率依次递减，当长度为 8 的时候，是最理想的值。</p>
+<h1 id="对象的共享"><a href="#对象的共享" class="headerlink" title="对象的共享"></a>对象的共享</h1><h2 id="Volatile关键字"><a href="#Volatile关键字" class="headerlink" title="Volatile关键字"></a>Volatile关键字</h2><p>将变量声明为volatile类型后，编译器和运行都会注意该变量是共享的，因此不会将其余其他操作重排序<br>也不会被缓存在寄存器或者对其他处理器不可见的地方。<br>通常用于某个操作的完成，发生中断或状态的标志<br>当且仅当满足以下所有条件时，才应该使用volatile变量:</p>
+<ul>
 <li>对变量的写入操作不依赖变量的当前值，或者你能确保只有单个线程更新变量的值。</li>
 <li>该变量不会与其他状态变量一起纳人不变性条件中。</li>
 <li>在访问变量时不需要加锁。<h2 id="发布与逸出"><a href="#发布与逸出" class="headerlink" title="发布与逸出"></a>发布与逸出</h2><h3 id="含义"><a href="#含义" class="headerlink" title="含义"></a>含义</h3>发布：使对象能够在当前作用域之外的代码中使用<br>逸出：当某个不应该发布的对象被发布，例如在对象构造完成之前就发布该对象</li>

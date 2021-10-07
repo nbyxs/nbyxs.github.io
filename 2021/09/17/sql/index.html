@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.4k 字
+      2.5k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      25
+      26
        分钟
     </span>
   
@@ -303,6 +303,7 @@
 <h4 id="乐观锁的实现方式："><a href="#乐观锁的实现方式：" class="headerlink" title="乐观锁的实现方式："></a>乐观锁的实现方式：</h4><p><strong>版本号</strong>：给数据增加一个版本标识，在数据库上就是表中增加一个version字段，<br>每次更新把这个字段加1，读取数据的时候把version读出来，更新的时候比较version，如果还是开始读取的version就可以更新了，<br>如果现在的version比老的version大，说明有其他事务更新了该数据，并增加了版本号，<br>这时候得到一个无法更新的通知，用户自行根据这个通知来决定怎么处理<br><strong>时间戳</strong>（timestamp）：和版本号基本一样，只是通过时间戳来判断而已，<br>注意时间戳要使用数据库服务器的时间戳不能是业务系统的时间。<br><strong>待更新字段</strong>：和版本号方式相似，只是不增加额外字段，直接使用有效数据字段做版本控制信息</p>
 <h3 id="什么是悲观锁"><a href="#什么是悲观锁" class="headerlink" title="什么是悲观锁"></a>什么是悲观锁</h3><p>悲观锁就是在读取数据的时候，为了不让别人修改自己读取的数据，就会先对数据加锁，只有自己把数据读完了，才允许别人修改那部分数据，</p>
 <h4 id="悲观锁按性质分："><a href="#悲观锁按性质分：" class="headerlink" title="悲观锁按性质分："></a>悲观锁按性质分：</h4><p>排他锁（x锁）：事务A对对象T加s锁，其他事务也只能对T加S，多个事务可以<strong>同时读</strong>，但<strong>不能有写操作</strong>，直到A释放S锁。<br>共享锁（s锁）：事务A对对象T加X锁以后，其他事务<strong>不能对T加任何锁</strong>，只有事务A可以读写对象T直到A释放X锁。<br>更新锁（u锁）：用来预定要对此对象施加X锁，它<strong>允许其他事务读</strong>，但<strong>不允许再施加U锁或X锁</strong>；当被读取的对象将要被更新时，则升级为X锁，主要是用来防止死锁的</p>
+<h3 id="什么是自旋锁"><a href="#什么是自旋锁" class="headerlink" title="什么是自旋锁"></a>什么是自旋锁</h3><p>自旋锁原理非常简单，<br>如果持有锁的线程能在很短时间内释放锁资源，那么那些等待竞争锁的线程就不需要做内核态和用户态之间的切换进入阻塞挂起状态，<br>它们只需要等持有锁的线程释放锁后即可立即获取锁，<br>这样就避免用户线程和内核的切换的消耗。</p>
 <h3 id="什么是行级锁"><a href="#什么是行级锁" class="headerlink" title="什么是行级锁"></a>什么是行级锁</h3><p>行级锁是一种排他锁，防止其他事务修改此行；在使用以下语句时， Oracle 会自动应用行级锁：</p>
 <ol>
 <li>INSERT、 UPDATE、 DELETE、 SELECT … FOR UPDATE [OF columns] [WAIT n | NOWAIT];</li>
