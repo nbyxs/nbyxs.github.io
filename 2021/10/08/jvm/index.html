@@ -1,0 +1,537 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/title.png">
+  <link rel="icon" href="/img/title.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="吃吃喝喝">
+  <meta name="author" content="无神论">
+  <meta name="keywords" content="">
+  
+  <title>jvm - 为社会主义添砖java</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>ZiHaoChen's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/background.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="jvm">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-08 13:42" pubdate>
+        2021年10月8日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      23
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">jvm</h1>
+            
+            <div class="markdown-body">
+              <h1 id="Java内存区域分布"><a href="#Java内存区域分布" class="headerlink" title="Java内存区域分布"></a>Java内存区域分布</h1><p>java内存区域分布图：<br><img src="/img/jvm_files/1.jpg" srcset="/img/loading.gif" lazyload></p>
+<h2 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h2><p>程序控制流的指示器<br>实现线程切换后的恢复和正确执行</p>
+<h2 id="Java虚拟机栈"><a href="#Java虚拟机栈" class="headerlink" title="Java虚拟机栈"></a>Java虚拟机栈</h2><p>描述Java方法执行的线程内存模型<br>每个方法执行虚拟机栈创建一个栈帧存放局部变量表，操作数栈等信息<br>局部变量表存放的是 基本数据类型，对象引用，返回值类型订单</p>
+<h2 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h2><p>使用本地方法服务</p>
+<h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>存放几乎一切对戏实例和数组</p>
+<h2 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h2><p>存储已被虚拟机加载的类型信息，常量，静态变量</p>
+<h2 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h2><p>方法区的一部分，存放编译期生成的各种字面量和符号引用</p>
+<h2 id="直接内存"><a href="#直接内存" class="headerlink" title="直接内存"></a>直接内存</h2><p>在 Java 堆中的 DirectByteBuffer 对象作为这块内存的引用进行操作。这样就能在一些场景中显<br>著提高性能，因为避免了在 Java 堆和 Native 堆之间来回复制数据。</p>
+<h1 id="对象的创建"><a href="#对象的创建" class="headerlink" title="对象的创建"></a>对象的创建</h1><p>创建流程图：</p>
+<p><img src="/img/jvm_files/2.jpg" srcset="/img/loading.gif" lazyload></p>
+<h2 id="内存分配方式"><a href="#内存分配方式" class="headerlink" title="内存分配方式"></a>内存分配方式</h2><h3 id="指针碰撞"><a href="#指针碰撞" class="headerlink" title="指针碰撞"></a>指针碰撞</h3><p>java堆内存绝对规整（中间由指针作为分界点指示器）：<br><img src="/img/jvm_files/3.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><strong>将指针向空闲空间方向挪动与对象大小相同的距离</strong></p>
+<h3 id="空闲列表"><a href="#空闲列表" class="headerlink" title="空闲列表"></a>空闲列表</h3><p>java堆内存相互交错：<br><img src="/img/jvm_files/4.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>虚拟机需维护一个列表，记录可用内存块<br>分配时找到一块足够大的空间划分给对象实例，并更新记录</p>
+<h2 id="对象头初始化"><a href="#对象头初始化" class="headerlink" title="对象头初始化"></a>对象头初始化</h2><p>对象头信息类型:<strong>对象自身运行数据和类型指针</strong></p>
+<h3 id="对象自身运行数据"><a href="#对象自身运行数据" class="headerlink" title="对象自身运行数据"></a>对象自身运行数据</h3><table>
+<thead>
+<tr>
+<th>存储内容</th>
+<th>标志位</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>对象哈希码，对象分代年龄</td>
+<td>01</td>
+<td>未锁定</td>
+</tr>
+<tr>
+<td>指向锁记录的指针</td>
+<td>00</td>
+<td>轻量级锁定</td>
+</tr>
+<tr>
+<td>指向重量级锁的指针</td>
+<td>10</td>
+<td>重量级锁定</td>
+</tr>
+<tr>
+<td>空</td>
+<td>11</td>
+<td>GC标记</td>
+</tr>
+<tr>
+<td>偏向线程ID，偏向时间戳，对象分代年龄</td>
+<td>01</td>
+<td>可偏向</td>
+</tr>
+</tbody></table>
+<h3 id="类型指针"><a href="#类型指针" class="headerlink" title="类型指针"></a>类型指针</h3><p>对象指向它的类型元数据的指针，java虚拟机通过这个指针来确定该对象对应的类</p>
+<h2 id="对象实例化"><a href="#对象实例化" class="headerlink" title="对象实例化"></a>对象实例化</h2><p>按规定顺序记录字段</p>
+<h1 id="垃圾回收器和内存分配策略"><a href="#垃圾回收器和内存分配策略" class="headerlink" title="垃圾回收器和内存分配策略"></a>垃圾回收器和内存分配策略</h1><h2 id="如何判断对象可回收"><a href="#如何判断对象可回收" class="headerlink" title="如何判断对象可回收"></a>如何判断对象可回收</h2><h3 id="引用计数法"><a href="#引用计数法" class="headerlink" title="引用计数法"></a>引用计数法</h3><p>很难解决对象相互循环引用的情况</p>
+<h3 id="可达性算法"><a href="#可达性算法" class="headerlink" title="可达性算法"></a>可达性算法</h3><p>基本思路：通过一系列称为“GC Roots”的根对象作为起始节点集，根据引用关系向下搜索，<br>搜索过程所走过的路径称为”引用链”</p>
+<p>如果某个对象对于GC Roots不可达，说明该对象可会回收。<br>GC Roots对象种类：</p>
+<ul>
+<li>虚拟机栈中引用的对象</li>
+<li>方法区中类静态属性引用的对象</li>
+<li>方法区中常量引用的对象</li>
+<li>本地方法栈中本地方法引用的对象</li>
+<li>虚拟机中内部引用</li>
+<li>所有被同步锁持有的对象</li>
+<li>….<br><img src="/img/jvm_files/5.jpg" srcset="/img/loading.gif" lazyload></li>
+</ul>
+<h2 id="引用类型的扩充"><a href="#引用类型的扩充" class="headerlink" title="引用类型的扩充"></a>引用类型的扩充</h2><p>引用扩充之前对象状态只有”引用”,”未引用”两种，对于一些如暂存在缓存中的对象无法精确的描述</p>
+<p>这一类对象的特点：当内存空间还足够时留在内存，不够时抛弃。</p>
+<p>java对引用进行扩充为：强引用，软引用，弱引用，虚引用，，，，</p>
+<p>引用强度依次降低。</p>
+<h3 id="强引用"><a href="#强引用" class="headerlink" title="强引用"></a>强引用</h3><p>使用最普遍的引用。如果一个对象具有强引用，那就类似于必不可少的生活用品，垃圾回收器绝不会回收它。当内存空间不足，Java虚拟机<br>宁愿<strong>抛出OutOfMemoryError错误，使程序异常终止，</strong>也不会靠随意回收具有强引用的对象来解决内存不足问题</p>
+<h3 id="软引用"><a href="#软引用" class="headerlink" title="软引用"></a>软引用</h3><p>如果一个对象只具有软引用，那就类似于可有可无的生活用品。</p>
+<p>如果内存空间足够，垃圾回收器就不会回收它，如果<strong>内存空间不够了，就会回收这些对象的内存。</strong>如果回收还是内存不足，才会抛出内存溢出异常。</p>
+<p>只要垃圾回收器没有回收它，该对象就可以被程序使用。软引用可用来实现内存敏感的高速缓存。</p>
+<h3 id="弱引用"><a href="#弱引用" class="headerlink" title="弱引用"></a>弱引用</h3><p>强度弱于软引用，与之关联的对象只能生存到下一次垃圾收集。无论内存是否充足，都会被回收<strong>只与弱引用相关联</strong>的对象</p>
+<h3 id="虚引用"><a href="#虚引用" class="headerlink" title="虚引用"></a>虚引用</h3><p>目的：在对象回收时收到一个系统通知</p>
+<h1 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h1><h2 id="分代收集理论"><a href="#分代收集理论" class="headerlink" title="分代收集理论"></a>分代收集理论</h2><p><strong>理论基础：</strong> </p>
+<ul>
+<li>弱分代假说：绝大多数对象都是朝生夕灭</li>
+<li>强分代假说：经历垃圾收集过程越多的对象就越难消亡</li>
+</ul>
+<p><strong>垃圾收集器设计原则</strong>：收集器应将java堆划分为不同的区域，然后将回收对象依据其年龄分配到不同的区域之中存储。</p>
+<p>将java堆区分为新生代和老生代：</p>
+<p>新生代中，每次收集都会有大量对象死去，所以可以选择复制算法，只需要付出少量对象的复制成本就可以完成每次垃圾收集。</p>
+<p>老生代的对象存活率是较高的，且没有额外的空间对它进行分配担保，所以我们必须选择“标记-清除”或“标记-整理”算法进行垃圾收集。</p>
+<h2 id="算法分类"><a href="#算法分类" class="headerlink" title="算法分类"></a>算法分类</h2><h3 id="标记-清除算法"><a href="#标记-清除算法" class="headerlink" title="标记-清除算法"></a>标记-清除算法</h3><p>该算法分为“标记”和“清除”阶段：先标记出所有不需要回收的对象，在标记完成后统一回收掉所有没有被标记的对象。</p>
+<h3 id="标记-复制算法"><a href="#标记-复制算法" class="headerlink" title="标记-复制算法"></a>标记-复制算法</h3><p>它可以将内存分为相同的两块，每次使用其中的一块。<br>当这一块的内存使用完后，就将还存活的对象复制到另一块去，<br>然后再把使用的空间再次清理掉。这样就使每次的内存回收都是对内存区间的一半进行回收。</p>
+<h3 id="标记-整理算法"><a href="#标记-整理算法" class="headerlink" title="标记-整理算法"></a>标记-整理算法</h3><p>标记过程仍然与“标记-清除”算法一样，但后续步骤不是直接对可回收对象回收，但是让所有存活的对象向一端移动，然后直接清理掉端边界以外的内存。</p>
+<h2 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h2><p><img src="/img/jvm_files/6.jpg" srcset="/img/loading.gif" lazyload></p>
+<h1 id="线程安全和锁优化"><a href="#线程安全和锁优化" class="headerlink" title="线程安全和锁优化"></a>线程安全和锁优化</h1><h2 id="线程安全分类"><a href="#线程安全分类" class="headerlink" title="线程安全分类"></a>线程安全分类</h2><ol>
+<li>不可变</li>
+<li>绝对线程安全</li>
+<li>相对线程安全</li>
+<li>线程兼容</li>
+<li>线程对立<h2 id="线程安全实现方法"><a href="#线程安全实现方法" class="headerlink" title="线程安全实现方法"></a>线程安全实现方法</h2></li>
+<li>互斥同步</li>
+<li>非阻塞同步<br>互斥同步属于悲观并发策略<br>无论共享的数据是否会出现竞争都会加锁，频繁的用户态核心态的切换，锁计数器的检查，线程的阻塞和唤醒</li>
+</ol>
+<p>非阻塞同步基于冲突检测的乐观并发策略————尝试获取共享数据，成功则占用，不成功再进行其他补救措施</p>
+<p>实现指令有</p>
+<ul>
+<li>测试并设置</li>
+<li>获取并增加</li>
+<li>交换</li>
+<li>比较并交换（CAS）</li>
+<li>加载链接/条件存储<h3 id="CAS详解"><a href="#CAS详解" class="headerlink" title="CAS详解"></a>CAS详解</h3>CAS指令操作数：内存位置(V),旧的预期值(A),新的预期值(B)</li>
+</ul>
+<p>指令执行iff V符合A时，处理器才会用B更新V的值。</p>
+<p>漏洞：</p>
+<ol>
+<li>ABA问题。因为CAS需要在操作值的时候检查下值有没有发生变化 ，如果没有发生变化则更新，但是如果一个值原来是A，变成了B，又变成了A，那么使用CAS进行检查时会发现它的值没有发生变化，但是实际上却变化了。ABA问题的解决思路就是使用版本号。<br>在变量前面追加上版本号，每次变量更新的时候把版本号加一，那么A－B－A 就会变成1A-2B－3A。</li>
+<li>循环时间长开销大</li>
+<li>只能保证一个共享变量的原子操作。</li>
+</ol>
+<h2 id="引入锁优化原因"><a href="#引入锁优化原因" class="headerlink" title="引入锁优化原因"></a>引入锁优化原因</h2><p><strong>线程之间更高效地共享数据及解决竞争问题，提高程序执行效率</strong></p>
+<h3 id="自旋锁和自适应自旋"><a href="#自旋锁和自适应自旋" class="headerlink" title="自旋锁和自适应自旋"></a>自旋锁和自适应自旋</h3><p>线程的挂起和恢复消耗(即用户态与核心态之间的切换)对性能影响最大，共享数据的锁定状态只会持续很短一段时间，为之付出的资源消耗并不值得。</p>
+<p>自适应自旋时间由前一次在同一个锁上自旋时间以及锁拥有者的状态决定的</p>
+<h3 id="锁粗化"><a href="#锁粗化" class="headerlink" title="锁粗化"></a>锁粗化</h3><p>虚拟机探测到一串零碎的操作都对同一个对象加锁，会将加锁同步的范围扩大到整个操作序列的外部</p>
+<h3 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h3><p>设计初衷：在没有多线程竞争前提下，减少传统重量级锁使用操作系统互斥量产生的性能消耗</p>
+<h3 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h3><p>消除数据在无竞争情况下的同步原语，进一步提高程序运行性能</p>
+<p>该锁会偏向第一个获得它的线程，在之后的执行中没有线程的竞争则持有该锁的线程不需同步</p>
+<p>锁关系的转化：<br><img src="/img/jvm_files/9.jpg" srcset="/img/loading.gif" lazyload></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/09/30/java/">
+                        <span class="hidden-mobile">java基础整理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/nbyxs?tab=repositories" target="_blank" rel="nofollow noopener"><span>github</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
