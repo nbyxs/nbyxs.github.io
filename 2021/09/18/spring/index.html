@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      228 字
+      727 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      7
        分钟
     </span>
   
@@ -229,12 +229,40 @@
             
             <div class="markdown-body">
               <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><p>是一个全面的、企业应用开发一站式的解决方案，贯穿表现层、业务层、持久层。但是 Spring仍然可以和其他的框架无缝整合。</p>
-<h2 id="spring特征：轻量，控制反转，面向切面，容器，框架"><a href="#spring特征：轻量，控制反转，面向切面，容器，框架" class="headerlink" title="spring特征：轻量，控制反转，面向切面，容器，框架"></a>spring特征：轻量，控制反转，面向切面，容器，框架</h2><ul>
+<h2 id="Spring特征：轻量，控制反转，面向切面，容器，框架"><a href="#Spring特征：轻量，控制反转，面向切面，容器，框架" class="headerlink" title="Spring特征：轻量，控制反转，面向切面，容器，框架"></a>Spring特征：轻量，控制反转，面向切面，容器，框架</h2><ul>
 <li>控制反转（IOC）：控制反转原则（或DI，依赖注入）<br>  在此过程中，对象仅通过构造函数参数、工厂方法参数或在对象实例被构造或从工厂方法返回后设置的属性来定义它们的依赖项(即它们使用的其他对象)；<br>  从根本上说，这个过程是bean本身通过直接构造类或Service Locator模式等机制来控制依赖项的实例化或位置的相反过程(因此得名“控制反转”)。</li>
 </ul>
-<h2 id="spring核心组件："><a href="#spring核心组件：" class="headerlink" title="spring核心组件："></a>spring核心组件：</h2><p><img src="spring_files/1.jpg" srcset="/img/loading.gif" lazyload></p>
-<h2 id="spring常用模块："><a href="#spring常用模块：" class="headerlink" title="spring常用模块："></a>spring常用模块：</h2><p><img src="spring_files/2.jpg" srcset="/img/loading.gif" lazyload></p>
-<h2 id="spirng-IOC原理"><a href="#spirng-IOC原理" class="headerlink" title="spirng IOC原理"></a>spirng IOC原理</h2><p>spring IoC实现原理是工厂模式+反射机制</p>
+<h2 id="Spring核心组件："><a href="#Spring核心组件：" class="headerlink" title="Spring核心组件："></a>Spring核心组件：</h2><p><img src="/img/spring_files/1.jpg" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Spring常用模块："><a href="#Spring常用模块：" class="headerlink" title="Spring常用模块："></a>Spring常用模块：</h2><p><img src="/img/spring_files/2.jpg" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Spirng-IOC原理"><a href="#Spirng-IOC原理" class="headerlink" title="Spirng IOC原理"></a>Spirng IOC原理</h2><p>IoC：控制反转，</p>
+<ul>
+<li>控制：由程序创建对象到IoC容器控制对象的创建</li>
+<li>反转： 由容器帮助创建及注入依赖对象<br>原本程序在类中自动创建依赖对象，使类和类之间高耦合</li>
+</ul>
+<p>IoC容器将创建和查找依赖对象的控制权给了容器，由容器注入组合对象，使对象之间松散耦合</p>
+<p>DI： 依赖注入</p>
+<p>组件之间的依赖关系由容器运行期间决定</p>
+<p>Spring IoC实现原理是工厂模式+反射机制</p>
+<h2 id="Spring-AOP"><a href="#Spring-AOP" class="headerlink" title="Spring AOP"></a>Spring AOP</h2><p>OOP弊端：<br>    当需要对多个不具有继承关系的对象引入同一个公共行为时(因为这些类毫无关系，所以无法联系起来)，我们只能在每个对象中引用公共行为，这样程序就产生了大量重复代码，程序不便于维护</p>
+<p>AOP(面向切面编程)实现对公共行为独立于核心业务外，方便与程序的扩展和解耦</p>
+<h3 id="AOP核心概念"><a href="#AOP核心概念" class="headerlink" title="AOP核心概念"></a>AOP核心概念</h3><ol>
+<li><p>横切关注点 对哪些方法进行拦截，拦截后怎么处理，这些关注点称之为横切关注点</p>
+</li>
+<li><p>切面（aspect）类是对物体特征的抽象，切面就是对横切关注点的抽象</p>
+</li>
+<li><p>连接点（joinpoint）被拦截到的点，因为Spring只支持方法类型的连接点，所以在Spring中连接点指的就是被拦截到的方法，实际上连接点还可以是字段或者构造器</p>
+</li>
+<li><p>切入点（pointcut）对连接点进行拦截的定义</p>
+</li>
+<li><p>通知（advice）所谓通知指的就是指拦截到连接点之后要执行的代码，通知分为前置、后置、异常、最终、环绕通知五类</p>
+</li>
+<li><p>目标对象 代理的目标对象</p>
+</li>
+<li><p>织入（weave）将切面应用到目标对象并导致代理对象创建的过程</p>
+</li>
+<li><p>引入（introduction）在不修改代码的前提下，引入可以在运行期为类动态地添加一些方法或字段</p>
+</li>
+</ol>
 
             </div>
             <hr>
